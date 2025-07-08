@@ -81,4 +81,82 @@ describe('StoryListComponent', () => {
     expect(component.news.length).toBe(2);
     expect(component.loading).toBeFalse();
   });
+
+  it('should filter news by searchTerm', () => {
+    component.news = [
+      { title: 'Angular Rocks', url: 'http://angular.com' },
+      { title: 'React News', url: 'http://react.com' }
+    ];
+    component.searchTerm = 'Angular';
+
+    const filtered = component.filteredNews;
+
+    expect(filtered.length).toBe(1);
+    expect(filtered[0].title).toBe('Angular Rocks');
+  });
+
+  it('should paginate filtered news correctly', () => {
+    component.news = Array.from({ length: 25 }, (_, i) => ({
+      title: `News ${i + 1}`,
+      url: `http://example.com/${i + 1}`
+    }));
+    component.searchTerm = '';
+    component.pageSize = 10;
+    component.currentPage = 2;
+
+    const pageItems = component.paginatedNews;
+
+    expect(pageItems.length).toBe(10);
+    expect(pageItems[0].title).toBe('News 11');
+  });
+
+  it('should return total pages correctly', () => {
+    component.news = Array.from({ length: 25 }, (_, i) => ({
+      title: `News ${i + 1}`,
+      url: `http://example.com/${i + 1}`
+    }));
+    component.pageSize = 10;
+    component.searchTerm = '';
+
+    expect(component.totalPages).toBe(3);
+  });
+
+  it('should increment page when nextPage called', () => {
+    component.news = Array.from({ length: 30 }, (_, i) => ({
+      title: `News ${i + 1}`,
+      url: `http://example.com/${i + 1}`
+    }));
+    component.pageSize = 10;
+    component.currentPage = 1;
+
+    component.nextPage();
+
+    expect(component.currentPage).toBe(2);
+  });
+
+  it('should not increment page when on last page', () => {
+    component.news = Array.from({ length: 10 }, (_, i) => ({
+      title: `News ${i + 1}`,
+      url: `http://example.com/${i + 1}`
+    }));
+    component.pageSize = 10;
+    component.currentPage = 1;
+
+    component.nextPage();
+
+    expect(component.currentPage).toBe(1); // no change
+  });
+
+  it('should decrement page when prevPage called', () => {
+    component.currentPage = 2;
+    component.prevPage();
+    expect(component.currentPage).toBe(1);
+  });
+
+  it('should not go below page 1', () => {
+    component.currentPage = 1;
+    component.prevPage();
+    expect(component.currentPage).toBe(1);
+  });
+
 });
