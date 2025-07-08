@@ -1,0 +1,19 @@
+<div class="controls">
+    <label for="countInput">Number of Tales:</label>
+    <input id="countInput" type="number" min="1" max="200" [(ngModel)]="taleCount" />
+    <button (click)="loadTales()">Load</button>
+</div>
+
+<div *ngIf="loading" class="loader-container">
+    <div class="spinner"></div>
+    <p>Loading top tales...</p>
+</div>
+
+<section *ngIf="!loading" class="tale-list-container">
+    <h2 class="tale-heading">Top {{ taleCount }} Tales</h2>
+    <ol class="tale-list">
+        <li *ngFor="let tale of tales">
+            <a [href]="tale.url" target="_blank" rel="noopener noreferrer">{{ tale.title }}</a>
+        </li>
+    </ol>
+</section>
