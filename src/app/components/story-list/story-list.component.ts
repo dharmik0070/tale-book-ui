@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { StoryService, Tale } from '../../services/story.service';
+import { StoryService, IHackerNews } from '../../services/story.service';
 
 @Component({
   selector: 'app-story-list',
@@ -11,26 +11,26 @@ import { StoryService, Tale } from '../../services/story.service';
   styleUrls: ['./story-list.component.scss']
 })
 export class StoryListComponent implements OnInit {
-  tales: Tale[] = [];
-  taleCount = 20;
+  news: IHackerNews[] = [];
+  newsCount = 20;
   loading = true;
 
   constructor(private storyService: StoryService) { }
 
   ngOnInit(): void {
-    this.loadTales();
+    this.loadNews();
   }
 
-  loadTales(): void {
-    if (this.taleCount < 1 || this.taleCount > 200) {
+  loadNews(): void {
+    if (this.newsCount < 1 || this.newsCount > 200) {
       alert('Please enter a value between 1 and 200.');
       return;
     }
 
     this.loading = true;
-    this.storyService.getTopTales(this.taleCount).subscribe({
+    this.storyService.getTopNews(this.newsCount).subscribe({
       next: (data) => {
-        this.tales = data;
+        this.news = data;
         this.loading = false;
       },
       error: () => {

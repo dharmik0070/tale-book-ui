@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface Tale {
+export interface IHackerNews {
   title: string;
   url: string;
 }
@@ -11,11 +11,11 @@ export interface Tale {
   providedIn: 'root'
 })
 export class StoryService {
-  private apiUrl = 'https://localhost:7294/api/tales/top';
+  private apiUrl = 'https://localhost:7294/api/news/top';
 
   constructor(private http: HttpClient) { }
 
-  getTopTales(count: number = 20): Observable<Tale[]> {
-    return this.http.get<Tale[]>(`${this.apiUrl}?count=${count}`);
+  getTopNews(count: number = 20): Observable<IHackerNews[]> {
+    return this.http.get<IHackerNews[]>(`${this.apiUrl}?count=${count}`);
   }
 }

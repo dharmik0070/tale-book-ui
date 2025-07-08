@@ -1,13 +1,13 @@
-# 📘 Talebook UI
+# 📘 HackerNews UI
 
-A modern Angular standalone application that displays the top 200 stories (tales) from News via the Talebook API.
+A modern Angular standalone application that displays the top 200 stories from News via the HackerNews API.
 
 ---
 
 ## 🚀 Features
 
 - ✅ Angular 17+ with **Standalone Components**
-- ✅ Integrated with `.NET Web API` (`Talebook.WebApi`)
+- ✅ Integrated with `.NET Web API` (`HackerNews.WebApi`)
 - ✅ Loader while fetching data
 - ✅ Error-safe service with graceful failure
 - ✅ Fully functional routing with fallback
@@ -18,10 +18,10 @@ A modern Angular standalone application that displays the top 200 stories (tales
 
 ## 🌐 Backend API Requirement
 
-Before running this UI, make sure your backend (`Talebook.WebApi`) is up at:
+Before running this UI, make sure your backend (`HackerNews.WebApi`) is up at:
 
 ```http
-https://localhost:7294/api/tales/top
+https://localhost:7294/api/news/top
 ```
 
 Expected response:
@@ -29,7 +29,7 @@ Expected response:
 ```json
 [
   {
-    "title": "Sample Tale",
+    "title": "Sample News",
     "url": "https://example.com"
   }
 ]
@@ -40,7 +40,6 @@ Expected response:
 ## 📂 Project Structure
 
 ```
-talebook-ui/
 ├── src/
 │   ├── app/
 │   │   ├── app.component.ts       # Root standalone component
@@ -98,7 +97,7 @@ Expected: ✅ **60–70%+** coverage
 |-----------------------------|--------------------------------------------------------------------------|
 | `ng: command not found`     | Install Angular CLI globally: `npm install -g @angular/cli`              |
 | `CORS` error in browser     | Enable CORS in `.NET` backend with `AllowAnyOrigin()`                    |
-| API not loading             | Confirm `Talebook.WebApi` is running on `https://localhost:5001`         |
+| API not loading             | Confirm `HackerNews.WebApi` is running on `https://localhost:5001`         |
 
 ---
 
