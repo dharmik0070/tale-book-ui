@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { StoryService, IHackerNews } from '../../services/story.service';
+import { IHackerNews, StoryService } from '../../services/story.service';
 
 @Component({
   selector: 'app-story-list',
@@ -14,6 +14,9 @@ export class StoryListComponent implements OnInit {
   news: IHackerNews[] = [];
   newsCount = 20;
   loading = true;
+  searchTerm = '';
+  currentPage = 1;
+  pageSize = 10;
 
   constructor(private storyService: StoryService) { }
 
@@ -31,11 +34,43 @@ export class StoryListComponent implements OnInit {
     this.storyService.getTopNews(this.newsCount).subscribe({
       next: (data) => {
         this.news = data;
+        this.currentPage = 1;
         this.loading = false;
       },
       error: () => {
         this.loading = false;
       }
     });
+  }
+
+  get filteredNews(): IHackerNews[] {
+    return this.news.filter(item =>
+      item.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  get paginatedNews(): IHackerNews[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.filteredNews.slice(start, start + this.pageSize);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredNews.length / this.pageSize);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  onSearchChange(): void {
+    this.currentPage = 1;
   }
 }

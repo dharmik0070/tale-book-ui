@@ -61,13 +61,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1rem;
     margin-bottom: 1.5rem;
 
-    input {
-        width: 60px;
-        padding: 0.25rem 0.5rem;
+    input[type='number'],
+    .search-box {
+        padding: 0.5rem;
         font-size: 1rem;
+    }
+    
+    .search-box {
+        width: 9rem;
     }
 
     button {
@@ -81,5 +85,19 @@
         &:hover {
             background-color: #0d47a1;
         }
+    }
+}
+
+.news-list {
+    padding-left: 1.5rem;
+}
+
+.pagination-controls {
+    margin-top: 1rem;
+    text-align: center;
+
+    button {
+        margin: 0 0.5rem;
+        padding: 0.4rem 0.8rem;
     }
 }

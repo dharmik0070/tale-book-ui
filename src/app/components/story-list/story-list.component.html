@@ -2,6 +2,8 @@
     <label for="countInput">Number of News:</label>
     <input id="countInput" type="number" min="1" max="200" [(ngModel)]="newsCount" />
     <button (click)="loadNews()">Load</button>
+    <input class="search-box" type="text" placeholder="Search by title" [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()" />
 </div>
 
 <div *ngIf="loading" class="loader-container">
@@ -12,8 +14,14 @@
 <section *ngIf="!loading" class="news-list-container">
     <h2 class="news-heading">Top {{ newsCount }} News</h2>
     <ol class="news-list">
-        <li *ngFor="let newsItem of news">
+        <li *ngFor="let newsItem of paginatedNews">
             <a [href]="newsItem.url" target="_blank" rel="noopener noreferrer">{{ newsItem.title }}</a>
         </li>
     </ol>
+
+    <div class="pagination-controls" *ngIf="totalPages > 1">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
 </section>
