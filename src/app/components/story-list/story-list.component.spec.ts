@@ -38,7 +38,7 @@ describe('StoryListComponent', () => {
 
     component.ngOnInit();
 
-    expect(mockStoryService.getTopNews).toHaveBeenCalledWith(20);
+    expect(mockStoryService.getTopNews).toHaveBeenCalledWith(200);
     expect(component.news.length).toBe(2);
     expect(component.loading).toBeFalse();
   });
