@@ -12,11 +12,11 @@ import { IHackerNews, StoryService } from '../../services/story.service';
 })
 export class StoryListComponent implements OnInit {
   news: IHackerNews[] = [];
-  newsCount = 20;
+  newsCount = 200;
   loading = true;
   searchTerm = '';
   currentPage = 1;
-  pageSize = 10;
+  pageSize = 15;
 
   constructor(private storyService: StoryService) { }
 
